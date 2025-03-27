@@ -1,12 +1,15 @@
-# React + Vite
+Specification
+I must be able to create a reminder with a remind by time.
+I must be able to reschedule my reminders.
+I must be able to delete reminders.
+You must have a passing test suite with at least 3 non-trivial tests.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project will be graded individually based on what is submitted. To receive higher than a B, complete at least 2 of the following extensions. Additional completed extensions will not result in extra credit but can boost your overall grade to a maximum of 40 points.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Extensions
+Allow for user accounts (look into Django-Rest-Framework's TokenAuth). (worth 2)
+Send a web push notification for the reminder. (worth 2)
+Integrate a React Calendar Widget for picking the reminder.
+Integrate React Query for making API calls.
+Integrate a React Component Library (React Aria, Mantine, HeadlessUI, etc.)
+You must have 100% test coverage of your code (not including manage.py and anything in conf/)

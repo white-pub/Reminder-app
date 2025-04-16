@@ -17,7 +17,7 @@ import { DashboardLayout } from '@toolpad/core';
 import {Account,AccountPreview,AccountPopoverFooter,SignOutButton,} from '@toolpad/core';
 import CalendarPage from '../components/CalendarPage';
 import RemindersPage from '../components/RemindersPage';
-import HeaderMain from '../components/HeaderMain'; // Import HeaderMain component
+import HeaderMain from '../components/HeaderMain'; 
 
 const NAVIGATION = [
   {

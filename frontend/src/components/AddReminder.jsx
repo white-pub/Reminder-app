@@ -10,11 +10,9 @@ const AddReminder = ({
   selectedDate,
   reminder,
   startTime,
-  endTime,
   setReminder,
   setSelectedStartDate,
   setStartTime,
-  setEndTime,
   handleAddEvent,
   handleEditEvent,
 }) => {
@@ -46,13 +44,6 @@ const AddReminder = ({
           label="Start Time"
           value={startTime}
           onChange={(newValue) => setStartTime(newValue)}
-          fullWidth
-          sx={{ mb: 2 }}
-        />
-        <TimePicker
-          label="End Time"
-          value={endTime}
-          onChange={(newValue) => setEndTime(newValue)}
           fullWidth
           sx={{ mb: 2 }}
         />

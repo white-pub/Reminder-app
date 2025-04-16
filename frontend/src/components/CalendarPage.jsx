@@ -7,6 +7,7 @@ import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import './Modal.css';
 import { Container } from '@mui/material';
 import AddReminder from './AddReminder';
+
 import dayjs from 'dayjs';
 
 const CalendarComponent = () => {
@@ -15,7 +16,6 @@ const CalendarComponent = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [reminder, setReminder] = useState('');
   const [startTime, setStartTime] = useState(dayjs());
-  const [endTime, setEndTime] = useState(dayjs().add(1, 'hour'));
   const [editMode, setEditMode] = useState(false);
   const [editEventId, setEditEventId] = useState(null);
   const [events, setEvents] = useState([
@@ -26,14 +26,14 @@ const CalendarComponent = () => {
       setSelectedDate(dayjs(event.start).format('YYYY-MM-DD'));
       setReminder(event.title);
       setStartTime(dayjs(event.start));
-      setEndTime(dayjs(event.end));
+      
       setEditMode(true);
       setEditEventId(event.id);
     } else {
       setSelectedDate(dayjs(date).format('YYYY-MM-DD'));
       setReminder('');
       setStartTime(dayjs());
-      setEndTime(dayjs().add(1, 'hour'));
+      
       setEditMode(false);
     }
     setModalIsOpen(true);
@@ -43,7 +43,6 @@ const CalendarComponent = () => {
     setModalIsOpen(false);
     setReminder('');
     setStartTime(dayjs());
-    setEndTime(dayjs().add(1, 'hour'));
     setEditMode(false);
     setEditEventId(null);
   };
@@ -53,7 +52,6 @@ const CalendarComponent = () => {
       id: events.length + 1,
       title: reminder,
       start: dayjs(selectedDate).set('hour', startTime.hour()).set('minute', startTime.minute()).toISOString(),
-      end: dayjs(selectedDate).set('hour', endTime.hour()).set('minute', endTime.minute()).toISOString(),
       allDay: false,
     };
     setEvents([...events, newEvent]);
@@ -62,8 +60,7 @@ const CalendarComponent = () => {
 
   const handleEditEvent = () => {
     const updatedEvents = events.map(event => 
-      event.id === editEventId ? { ...event, title: reminder, start: dayjs(selectedDate).set('hour', startTime.hour()).set('minute', startTime.minute()).toISOString(), end: dayjs(selectedDate).set('hour', endTime.hour()).set('minute', endTime.minute()).toISOString() } : event
-    );
+      event.id === editEventId ? { ...event, title: reminder, start: dayjs(selectedDate).set('hour', startTime.hour()).set('minute', startTime.minute()).toISOString()} : event);
     setEvents(updatedEvents);
     closeModal();
   };
@@ -109,11 +106,9 @@ const CalendarComponent = () => {
           selectedDate={selectedDate}
           reminder={reminder}
           startTime={startTime}
-          endTime={endTime}
           setReminder={setReminder}
           setSelectedDate={setSelectedDate}
           setStartTime={setStartTime}
-          setEndTime={setEndTime}
           handleAddEvent={handleAddEvent}
           handleEditEvent={handleEditEvent}
         />

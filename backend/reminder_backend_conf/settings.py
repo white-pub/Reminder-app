@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "allauth",
     "allauth.account",
+    "allauth.headless",
 
     "reminders",
 ]
@@ -67,6 +68,16 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     
 ]
+
+# URLs to be implemented by the single-page application.
+HEADLESS_FRONTEND_URLS = {
+    "account_confirm_email": "https://app.project.org/account/verify-email/{key}",
+    "account_reset_password_from_key": "https://app.org/account/password/reset/key/{key}",
+    "account_signup": "https://app.org/account/signup",
+}
+
+# to provide allauth to the frontend (not uing the default allauth page)
+HEADLESS_ONLY = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 

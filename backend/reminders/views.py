@@ -8,7 +8,10 @@ Reminders Views
 from rest_framework import viewsets
 from reminders import models, serializers
 
-# Create your views here.
+from allauth.headless.contrib.rest_framework.authentication import (
+    XSessionTokenAuthentication,
+)
+from rest_framework import permissions
 
 
 # Viewsets simplify the API code.
@@ -19,3 +22,8 @@ class ReminderViewSet(viewsets.ModelViewSet):
     # The queryset defines what models will be fetched for this viewset.
     queryset = models.Reminder.objects.all()
     serializer_class = serializers.ReminderSerializerSerializer
+
+    authentication_classes = [
+        XSessionTokenAuthentication,
+    ]
+    permission_classes = [permissions.IsAuthenticated]

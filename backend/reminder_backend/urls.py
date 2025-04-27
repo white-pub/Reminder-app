@@ -17,15 +17,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from reminders.views import ReminderViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+router = DefaultRouter()
+router.register(r'reminders', ReminderViewSet, basename='reminder')
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    
-    # Even when using headless, the third-party provider endpoints are stil
-    # needed for handling e.g. the OAuth handshake.
-    path("accounts/", include("allauth.urls")),
-    # Include the API endpoints:
-    path("_allauth/", include("allauth.headless.urls")),
-    
-    path("api/", include("reminders.urls")),
+    path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

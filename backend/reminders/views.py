@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Reminder
 from .serializers import ReminderSerializer
 
+
 # User Sign-Up Endpoint
 @api_view(['POST'])
 def signup(request):
@@ -14,11 +15,11 @@ def signup(request):
     """
     data = request.data
     try:
+        
         user = User.objects.create_user(
-            username=data['email'],  # Using email as the username
-            email=data['email'],
+            username=data['username'],  # Using email as the username
             password=data['password'],
-            first_name=data['first_name']
+          
         )
         return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
     except Exception as e:

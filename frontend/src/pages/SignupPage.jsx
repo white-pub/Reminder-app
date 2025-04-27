@@ -30,8 +30,7 @@ const Theme = createTheme({
 });
 
 export default function SignUpPage() {
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
@@ -39,14 +38,13 @@ export default function SignUpPage() {
   const handleSignUp = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/signup/', {
-        name,
-        email,
+        username,
         password,
       });
 
       if (response.status === 201) {
         setError(null);
-        navigate('/login', { state: { message: 'Account created successfully! Please log in.' } });
+        navigate('/signin', { state: { message: 'Account created successfully! Please log in.' } });
       }
     } catch (err) {
       console.error(err);
@@ -93,20 +91,12 @@ export default function SignUpPage() {
             </Typography>
           )}
           <TextField
-            label="Name"
+            label="username"
+            type = "username"
             variant="outlined"
             fullWidth
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            InputLabelProps={{ style: { color: '#b0bec5' } }}
-            InputProps={{ style: { color: '#ffffff' } }}
-          />
-          <TextField
-            label="Email"
-            variant="outlined"
-            fullWidth
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             InputLabelProps={{ style: { color: '#b0bec5' } }}
             InputProps={{ style: { color: '#ffffff' } }}
           />

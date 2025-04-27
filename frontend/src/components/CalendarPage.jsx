@@ -9,6 +9,10 @@ import { Container } from '@mui/material';
 import AddReminder from './AddReminder';
 import dayjs from 'dayjs';
 import axios from 'axios';
+import { scheduleNotification } from '../utils/notificationManager';
+
+
+
 
 const CalendarComponent = () => {
   const calendarRef = useRef(null);
@@ -36,6 +40,9 @@ const CalendarComponent = () => {
           allDay: false,
         }));
         setEvents(apiEvents);
+        response.data.forEach((reminder) => {
+          scheduleNotification({ title: reminder.title, remind_time: reminder.remind_time });
+        });
       } catch (err) {
         console.error('Error fetching reminders:', err);
       }

@@ -13,7 +13,7 @@ import { AppProvider } from '@toolpad/core';
 import { DashboardLayout } from '@toolpad/core';
 import CalendarPage from '../components/CalendarPage';
 import RemindersPage from '../components/RemindersPage';
-import HeaderMain from '../components/HeaderMain';
+
 
 const NAVIGATION = [
   {
@@ -66,7 +66,8 @@ function PageContent({ pathname }) {
         textAlign: 'center',
       }}
     >
-      <HeaderMain />
+      
+      
       {pathname === '/calendar' ? (
         <CalendarPage />
       ) : pathname === '/list' ? (
@@ -127,7 +128,7 @@ export default function DashboardLayoutAccountSidebar(props) {
       <DashboardLayout
         slots={{
           toolbarAccount: () => null,
-          sidebarFooter: () => <DashboardNavigation setPathname={setPathname} />,
+          
         }}
       >
         <PageContent pathname={pathname} />

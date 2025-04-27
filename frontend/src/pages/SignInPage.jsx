@@ -30,7 +30,7 @@ const Theme = createTheme({
 });
 
 export default function SignInPage() {
-  const [email, setEmail] = React.useState('');
+  const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
@@ -38,14 +38,14 @@ export default function SignInPage() {
   const handleSignIn = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/token/', {
-        username: email, // Django uses "username" for default authentication
+        username, // Django uses "username" for default authentication
         password,
       });
 
       // Store the token and redirect
       localStorage.setItem('token', response.data.access);
       setError(null);
-      navigate('/dashboard'); // Redirect to reminders page
+      navigate('/'); // Redirect to reminders page
     } catch (err) {
       console.error(err);
       setError('Invalid email or password. Please try again.');
@@ -91,11 +91,11 @@ export default function SignInPage() {
             </Typography>
           )}
           <TextField
-            label="Email"
+            label="Username"
             variant="outlined"
             fullWidth
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             InputLabelProps={{ style: { color: '#b0bec5' } }}
             InputProps={{ style: { color: '#ffffff' } }}
           />

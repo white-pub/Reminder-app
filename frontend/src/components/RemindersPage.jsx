@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, List, ListItem, ListItemText, Typography } from '@mui/material';
-
-const reminders = [
-  { id: 1, name: 'Doctor Appointment', date: '2025-03-23', time: '10:00 AM' },
-  { id: 2, name: 'Team Meeting', date: '2025-03-24', time: '02:00 PM' },
-  { id: 3, name: 'Project Deadline', date: '2025-03-25', time: '11:59 PM' },
-];
+import axios from 'axios';
 
 const RemindersPage = () => {
+  const [reminders, setReminders] = useState([]);
+
+  // Fetch reminders from the API
+  useEffect(() => {
+    const fetchReminders = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/reminders/', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        setReminders(response.data);
+      } catch (err) {
+        console.error('Error fetching reminders:', err);
+      }
+    };
+
+    fetchReminders();
+  }, []);
+
   return (
-    <Container sx={{paddingTop: '20px'}}>
+    <Container sx={{ paddingTop: '20px' }}>
       <Typography variant="h4" component="h2" gutterBottom>
         List of Reminders
       </Typography>
@@ -17,8 +32,8 @@ const RemindersPage = () => {
         {reminders.map((reminder) => (
           <ListItem key={reminder.id}>
             <ListItemText
-              primary={reminder.name}
-              secondary={`${reminder.date} at ${reminder.time}`}
+              primary={reminder.title}
+              secondary={`${new Date(reminder.remind_time).toLocaleDateString()} at ${new Date(reminder.remind_time).toLocaleTimeString()}`}
             />
           </ListItem>
         ))}

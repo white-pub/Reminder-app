@@ -1,11 +1,4 @@
 
-"""
-Reminder-app/backend/reminders/models.py
-Updated: 2025-4-22
-
-Models for reminder app.
-"""
-
 from django.contrib.auth.models import User
 from django.db import models
 

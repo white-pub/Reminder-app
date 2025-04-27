@@ -1,18 +1,31 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignInPage from './pages/SignInPage';
-import Reminders from './pages/Reminders';
+import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignInPage />} />
+        {/* Main page is Dashboard */}
         <Route
-          path="/reminders"
+          path="/"
           element={
             <ProtectedRoute>
-              <Reminders />
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Sign-in page */}
+        <Route path="/signin" element={<SignInPage />} />
+
+        {/* Additional routes can also be nested inside Dashboard */}
+        <Route
+          path="/dashboard/*"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
             </ProtectedRoute>
           }
         />

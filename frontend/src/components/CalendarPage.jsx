@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -7,8 +7,8 @@ import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import './Modal.css';
 import { Container } from '@mui/material';
 import AddReminder from './AddReminder';
-
 import dayjs from 'dayjs';
+import axios from 'axios';
 
 const CalendarComponent = () => {
   const calendarRef = useRef(null);
@@ -18,22 +18,45 @@ const CalendarComponent = () => {
   const [startTime, setStartTime] = useState(dayjs());
   const [editMode, setEditMode] = useState(false);
   const [editEventId, setEditEventId] = useState(null);
-  const [events, setEvents] = useState([
-  ]);
+  const [events, setEvents] = useState([]);
+
+  // Fetch reminders from the API
+  useEffect(() => {
+    const fetchReminders = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/reminders/', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        const apiEvents = response.data.map((reminder) => ({
+          id: reminder.id,
+          title: reminder.title,
+          start: reminder.remind_time,
+          allDay: false,
+        }));
+        setEvents(apiEvents);
+      } catch (err) {
+        console.error('Error fetching reminders:', err);
+      }
+    };
+
+    fetchReminders();
+  }, []);
 
   const openModal = (date, event = null) => {
     if (event) {
       setSelectedDate(dayjs(event.start).format('YYYY-MM-DD'));
       setReminder(event.title);
       setStartTime(dayjs(event.start));
-      
+
       setEditMode(true);
       setEditEventId(event.id);
     } else {
       setSelectedDate(dayjs(date).format('YYYY-MM-DD'));
       setReminder('');
       setStartTime(dayjs());
-      
+
       setEditMode(false);
     }
     setModalIsOpen(true);
@@ -47,22 +70,61 @@ const CalendarComponent = () => {
     setEditEventId(null);
   };
 
-  const handleAddEvent = () => {
-    const newEvent = {
-      id: events.length + 1,
-      title: reminder,
-      start: dayjs(selectedDate).set('hour', startTime.hour()).set('minute', startTime.minute()).toISOString(),
-      allDay: false,
-    };
-    setEvents([...events, newEvent]);
-    closeModal();
+  const handleAddEvent = async () => {
+    try {
+      const newReminder = {
+        title: reminder,
+        remind_time: dayjs(selectedDate)
+          .set('hour', startTime.hour())
+          .set('minute', startTime.minute())
+          .toISOString(),
+      };
+
+      const response = await axios.post('http://127.0.0.1:8000/api/reminders/', newReminder, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      const newEvent = {
+        id: response.data.id,
+        title: response.data.title,
+        start: response.data.remind_time,
+        allDay: false,
+      };
+      setEvents([...events, newEvent]);
+      closeModal();
+    } catch (err) {
+      console.error('Error adding reminder:', err);
+    }
   };
 
-  const handleEditEvent = () => {
-    const updatedEvents = events.map(event => 
-      event.id === editEventId ? { ...event, title: reminder, start: dayjs(selectedDate).set('hour', startTime.hour()).set('minute', startTime.minute()).toISOString()} : event);
-    setEvents(updatedEvents);
-    closeModal();
+  const handleEditEvent = async () => {
+    try {
+      const updatedReminder = {
+        title: reminder,
+        remind_time: dayjs(selectedDate)
+          .set('hour', startTime.hour())
+          .set('minute', startTime.minute())
+          .toISOString(),
+      };
+
+      await axios.put(`http://127.0.0.1:8000/api/reminders/${editEventId}/`, updatedReminder, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      const updatedEvents = events.map((event) =>
+        event.id === editEventId
+          ? { ...event, title: reminder, start: updatedReminder.remind_time }
+          : event
+      );
+      setEvents(updatedEvents);
+      closeModal();
+    } catch (err) {
+      console.error('Error editing reminder:', err);
+    }
   };
 
   const handleDateClick = (arg) => {
@@ -73,12 +135,8 @@ const CalendarComponent = () => {
     openModal(event.startStr, event);
   };
 
-  const handleSelectedDates = (info) => {
-    openModal(info.startStr);
-  };
-
   return (
-    <Container sx={{paddingTop: '20px'}} className="calendar-container">
+    <Container sx={{ paddingTop: '20px' }} className="calendar-container">
       <FullCalendar
         schedulerLicenseKey="GPL-My-Project-Is-Open-Source"
         ref={calendarRef}
@@ -93,9 +151,7 @@ const CalendarComponent = () => {
         selectable={true}
         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, resourceTimeGridPlugin]}
         events={events}
-        select={handleSelectedDates}
         eventClick={handleEventClick}
-        eventLimit={3}
       />
 
       {modalIsOpen && (

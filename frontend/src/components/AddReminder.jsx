@@ -11,7 +11,7 @@ const AddReminder = ({
   reminder,
   startTime,
   setReminder,
-  setSelectedStartDate,
+  setSelectedDate,
   setStartTime,
   handleAddEvent,
   handleEditEvent,
@@ -21,18 +21,18 @@ const AddReminder = ({
   return (
     <Box sx={{ p: 3, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
       <Typography variant="h6" gutterBottom>
-        {editMode ? "Edit Reminder" : "Add Reminder"}
+        {editMode ? 'Edit Reminder' : 'Add Reminder'}
       </Typography>
 
       <TextField
-        label="PickDate"
+        label="Pick a Date"
         type="date"
         value={selectedDateStartString}
-        onChange={(e) => setSelectedStartDate(e.target.value)}
+        onChange={(e) => setSelectedDate(e.target.value)}
         fullWidth
         sx={{ mb: 2 }}
-        />
-        <TextField
+      />
+      <TextField
         label="Reminder"
         value={reminder}
         onChange={(e) => setReminder(e.target.value)}
@@ -53,7 +53,7 @@ const AddReminder = ({
         color="primary"
         onClick={editMode ? handleEditEvent : handleAddEvent}
       >
-        {editMode ? "Save Changes" : "Add"}
+        {editMode ? 'Save Changes' : 'Add'}
       </Button>
     </Box>
   );

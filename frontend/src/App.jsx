@@ -1,34 +1,26 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignInPage from './pages/SignInPage';
-import Dashboard from './pages/Dashboard';
+import DashboardLayoutAccountSidebar from './pages/Dashboard';
 import ProtectedRoute from './pages/ProtectedRoute';
+import SignupPage from './pages/SignupPage';
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Main page is Dashboard */}
+        {/* Protected Dashboard */}
         <Route
           path="/"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <DashboardLayoutAccountSidebar />
             </ProtectedRoute>
           }
         />
 
-        {/* Sign-in page */}
+        
         <Route path="/signin" element={<SignInPage />} />
-
-        {/* Additional routes can also be nested inside Dashboard */}
-        <Route
-          path="/dashboard/"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        /> 
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </Router>
   );

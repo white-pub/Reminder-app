@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 
-
-class RemindersConfig(AppConfig):
+class ReminderBackendConfConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'reminders'
+    name = 'reminder_backend_conf'

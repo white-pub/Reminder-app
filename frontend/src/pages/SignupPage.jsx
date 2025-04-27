@@ -10,58 +10,47 @@ import axios from 'axios';
 import './SignInPage.css';
 
 const Theme = createTheme({
-    cssVariables: {
-      colorSchemeSelector: 'data-toolpad-color-scheme',
-    },
-    colorSchemes: {
-      light: true,
-      dark: {
-        palette: {
-          primary: { main: '#90caf9' },
-          secondary: { main: '#f48fb1' },
-          background: { default: '#0d1117', paper: '#0d1117' },
-          text: { primary: '#ffffff', secondary: '#b0bec5' },
-        },
+  cssVariables: {
+    colorSchemeSelector: 'data-toolpad-color-scheme',
+  },
+  colorSchemes: {
+    light: true,
+    dark: {
+      palette: {
+        primary: { main: '#90caf9' },
+        secondary: { main: '#f48fb1' },
+        background: { default: '#0d1117', paper: '#0d1117' },
+        text: { primary: '#ffffff', secondary: '#b0bec5' },
       },
     },
-    breakpoints: {
-      values: { xs: 0, sm: 600, md: 600, lg: 1200, xl: 1536 },
-    },
+  },
+  breakpoints: {
+    values: { xs: 0, sm: 600, md: 600, lg: 1200, xl: 1536 },
+  },
 });
 
 export default function SignUpPage() {
-  const [formData, setFormData] = React.useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handleSignUp = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/signup/', {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        password: formData.password,
+        name,
+        email,
+        password,
       });
 
-      // Redirect to the sign-in page after successful registration
-      console.log(response.data);
-      setError(null);
-      navigate('/');
+      if (response.status === 201) {
+        setError(null);
+        navigate('/login', { state: { message: 'Account created successfully! Please log in.' } });
+      }
     } catch (err) {
       console.error(err);
-      setError('Failed to create an account. Please try again.');
+      setError(err.response?.data?.message || 'Failed to sign up. Please try again.');
     }
   };
 
@@ -104,43 +93,30 @@ export default function SignUpPage() {
             </Typography>
           )}
           <TextField
-            label="First Name"
-            name="firstName"
+            label="Name"
             variant="outlined"
             fullWidth
-            value={formData.firstName}
-            onChange={handleChange}
-            InputLabelProps={{ style: { color: '#b0bec5' } }}
-            InputProps={{ style: { color: '#ffffff' } }}
-          />
-          <TextField
-            label="Last Name"
-            name="lastName"
-            variant="outlined"
-            fullWidth
-            value={formData.lastName}
-            onChange={handleChange}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             InputLabelProps={{ style: { color: '#b0bec5' } }}
             InputProps={{ style: { color: '#ffffff' } }}
           />
           <TextField
             label="Email"
-            name="email"
             variant="outlined"
             fullWidth
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             InputLabelProps={{ style: { color: '#b0bec5' } }}
             InputProps={{ style: { color: '#ffffff' } }}
           />
           <TextField
             label="Password"
-            name="password"
             type="password"
             variant="outlined"
             fullWidth
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             InputLabelProps={{ style: { color: '#b0bec5' } }}
             InputProps={{ style: { color: '#ffffff' } }}
           />
@@ -151,6 +127,19 @@ export default function SignUpPage() {
             onClick={handleSignUp}
           >
             Sign Up
+          </Button>
+          <Button
+            onClick={() => navigate('/login')}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#6c757d',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            Already have an account? Log In
           </Button>
         </Box>
       </Box>

@@ -10,24 +10,24 @@ import axios from 'axios';
 import './SignInPage.css';
 
 const Theme = createTheme({
-    cssVariables: {
-      colorSchemeSelector: 'data-toolpad-color-scheme',
-    },
-    colorSchemes: {
-      light: true,
-      dark: {
-        palette: {
-          primary: { main: '#90caf9' },
-          secondary: { main: '#f48fb1' },
-          background: { default: '#0d1117', paper: '#0d1117' },
-          text: { primary: '#ffffff', secondary: '#b0bec5' },
-        },
+  cssVariables: {
+    colorSchemeSelector: 'data-toolpad-color-scheme',
+  },
+  colorSchemes: {
+    light: true,
+    dark: {
+      palette: {
+        primary: { main: '#90caf9' },
+        secondary: { main: '#f48fb1' },
+        background: { default: '#0d1117', paper: '#0d1117' },
+        text: { primary: '#ffffff', secondary: '#b0bec5' },
       },
     },
-    breakpoints: {
-      values: { xs: 0, sm: 600, md: 600, lg: 1200, xl: 1536 },
-    },
-  });
+  },
+  breakpoints: {
+    values: { xs: 0, sm: 600, md: 600, lg: 1200, xl: 1536 },
+  },
+});
 
 export default function SignInPage() {
   const [email, setEmail] = React.useState('');
@@ -45,7 +45,7 @@ export default function SignInPage() {
       // Store the token and redirect
       localStorage.setItem('token', response.data.access);
       setError(null);
-      navigate('/reminders'); // Redirect to reminders page
+      navigate('/dashboard'); // Redirect to reminders page
     } catch (err) {
       console.error(err);
       setError('Invalid email or password. Please try again.');
@@ -116,6 +116,19 @@ export default function SignInPage() {
             onClick={handleSignIn}
           >
             Sign In
+          </Button>
+          <Button
+            onClick={() => navigate('/signup')}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#6c757d',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            Don't have an account? Sign Up
           </Button>
         </Box>
       </Box>

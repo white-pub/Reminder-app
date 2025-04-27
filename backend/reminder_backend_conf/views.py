@@ -18,8 +18,7 @@ def signup(request):
             username=data['email'],  # Using email as the username
             email=data['email'],
             password=data['password'],
-            first_name=data['first_name'],
-            last_name=data['last_name']
+            first_name=data['first_name']
         )
         return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
     except Exception as e:

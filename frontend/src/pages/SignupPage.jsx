@@ -129,7 +129,7 @@ export default function SignUpPage() {
             Sign Up
           </Button>
           <Button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/signin')}
             style={{
               padding: '10px 20px',
               backgroundColor: '#6c757d',
@@ -139,7 +139,7 @@ export default function SignUpPage() {
               cursor: 'pointer',
             }}
           >
-            Already have an account? Log In
+            Already have an account? Sign In
           </Button>
         </Box>
       </Box>

@@ -9,12 +9,11 @@ router.register(r'reminders', ReminderViewSet, basename='reminder')
 
 urlpatterns = [
     # Sign-Up endpoint
-    path('api/signup/', signup, name='signup'),
+    path('signup/', signup, name='signup'),
 
-    # JWT Authentication endpoints
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Sign-In
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # Refresh Token
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Sign-In
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # Refresh Token
 
-    # Reminders API
-    path('api/', include(router.urls)),
+    # Include the router URLs (e.g., /reminders/)
+    path('', include(router.urls)),
 ]

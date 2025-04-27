@@ -1,11 +1,24 @@
-import DashboardLayoutAccountSidebar from './layouts/Dashboard';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignInPage from './pages/SignInPage';
+import Reminders from './pages/Reminders';
+import ProtectedRoute from './components/ProtectedRoute';
 
-export default function App() {
+function App() {
   return (
-    <>
-      <DashboardLayoutAccountSidebar />
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<SignInPage />} />
+        <Route
+          path="/reminders"
+          element={
+            <ProtectedRoute>
+              <Reminders />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </Router>
+  );
 }
 
-
+export default App;

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "reminders",
-    'reminder_backend_conf',
+    
 ]
 
 MIDDLEWARE = [
@@ -71,7 +71,7 @@ AUTHENTICATION_BACKENDS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-ROOT_URLCONF = 'reminder_backend_conf.urls'
+ROOT_URLCONF = 'reminder_backend.urls'
 
 TEMPLATES = [
     {
@@ -89,7 +89,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'reminder_backend_conf.wsgi.application'
+WSGI_APPLICATION = 'reminder_backend.wsgi.application'
 
 
 # Database

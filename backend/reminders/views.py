@@ -21,7 +21,7 @@ from rest_framework import permissions
 class ReminderViewSet(viewsets.ModelViewSet):
     # The queryset defines what models will be fetched for this viewset.
     queryset = models.Reminder.objects.all()
-    serializer_class = serializers.ReminderSerializerSerializer
+    serializer_class = serializers.ReminderSerializer
 
     authentication_classes = [
         XSessionTokenAuthentication,

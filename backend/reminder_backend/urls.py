@@ -5,6 +5,8 @@ urlpatterns = [
     # Admin panel
     path('admin/', admin.site.urls),
 
+
     # API paths routed to the "reminders" app
     path('api/', include('reminders.urls')),
 ]
+

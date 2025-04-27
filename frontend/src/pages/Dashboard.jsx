@@ -264,7 +264,7 @@ const Session = {
   },
 };
 
-export default function DashboardLayoutAccountSidebar(props) {
+export default function Dashboard(props) {
   const { window } = props;
 
   const [pathname, setPathname] = React.useState('/calendar');

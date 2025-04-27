@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignInPage from './pages/SignInPage';
 import Dashboard from './pages/Dashboard';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 function App() {
   return (
@@ -22,13 +22,13 @@ function App() {
 
         {/* Additional routes can also be nested inside Dashboard */}
         <Route
-          path="/dashboard/*"
+          path="/dashboard/"
           element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
-        />
+        /> 
       </Routes>
     </Router>
   );

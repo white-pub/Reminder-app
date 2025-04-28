@@ -21,7 +21,6 @@ This project uses the following technologies:
 ## Repository Details
 
 - **Repository**: [Reminder App](https://github.com/white-pub/Reminder-app)
-- **Branch**: `marcus`
 - **Primary Language Composition**:
   - JavaScript: 60.5%
   - Python: 33.2%

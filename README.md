@@ -35,3 +35,18 @@ This project uses the following technologies:
    ```bash
    git clone https://github.com/white-pub/Reminder-app.git
    cd Reminder-app
+
+## Specification and Extensions
+
+#### Backend
+- Reminder model: Anna and Marcus
+- Serializer: Anna and Marcus
+- URL routing and API: Marcus
+- Testcases: Anna
+- Allauth: Anna and Marcus
+
+#### Frontend
+- Create, update, and delete reminders: Marcus
+- Send a web push notification for the reminder: Marcus
+- Integrate a React Calendar Widget for picking the reminder: Marcus
+- UI: Marcus

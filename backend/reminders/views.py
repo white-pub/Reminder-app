@@ -1,3 +1,10 @@
+"""
+backend/reminders/views.py
+Updated: 2025-04-28
+
+The views for the reminders app.
+"""
+
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
@@ -8,28 +15,30 @@ from .serializers import ReminderSerializer
 
 
 # User Sign-Up Endpoint
-@api_view(['POST'])
+@api_view(["POST"])
 def signup(request):
     """
     Handles user registration.
     """
     data = request.data
     try:
-        
         user = User.objects.create_user(
-            username=data['username'],  # Using email as the username
-            password=data['password'],
-          
+            username=data["username"],  # Using email as the username
+            password=data["password"],
         )
-        return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+        return Response(
+            {"message": "User created successfully"}, status=status.HTTP_201_CREATED
+        )
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 # Reminder CRUD Operations
 class ReminderViewSet(viewsets.ModelViewSet):
     """
     A viewset for performing CRUD operations on reminders.
     """
+
     permission_classes = [IsAuthenticated]
     serializer_class = ReminderSerializer
 

@@ -1,6 +1,13 @@
+"""
+backend/reminders/models.py
+Updated: 2025-04-28
+
+The reminder model.
+"""
 
 from django.contrib.auth.models import User
 from django.db import models
+
 
 class Reminder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

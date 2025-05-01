@@ -52,6 +52,7 @@ const AddReminder = ({
         variant="contained"
         color="primary"
         onClick={editMode ? handleEditEvent : handleAddEvent}
+        style={{marginLeft: '20px', marginTop: '10px'}}
       >
         {editMode ? 'Save Changes' : 'Add'}
       </Button>

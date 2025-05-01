@@ -43,12 +43,12 @@ const Theme = createTheme({
           main: '#f48fb1',
         },
         background: {
-          default: '#0d1117',
+          default: '#11171e',
           paper: '#0d1117',
         },
         text: {
-          primary: '#ffffff',
-          secondary: '#b0bec5',
+          primary: '#f1f1f1',
+          secondary: '#878787',
         },
       },
     },

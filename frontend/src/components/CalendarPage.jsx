@@ -150,10 +150,17 @@ const CalendarComponent = () => {
         defaultView="dayGridMonth"
         dateClick={handleDateClick}
         displayEventTime={true}
-        header={{
+        headerToolbar={{
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        }}
+        buttonText={{
+          today: 'Today',
+          day: 'Day',
+          month: 'Month',
+          week: 'Week',
+
         }}
         selectable={true}
         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, resourceTimeGridPlugin]}

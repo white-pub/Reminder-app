@@ -19,8 +19,8 @@ const Theme = createTheme({
       palette: {
         primary: { main: '#90caf9' },
         secondary: { main: '#f48fb1' },
-        background: { default: '#0d1117', paper: '#0d1117' },
-        text: { primary: '#ffffff', secondary: '#b0bec5' },
+        background: { default: '#11171e', paper: '#0d1117' },
+        text: { primary: '#f1f1f1', secondary: '#878787' },
       },
     },
   },
@@ -124,11 +124,11 @@ export default function SignInPage() {
               backgroundColor: '#6c757d',
               color: 'white',
               border: 'none',
-              borderRadius: '5px',
+              borderRadius: '10px',
               cursor: 'pointer',
             }}
           >
-            Don't have an account? Sign Up
+            No account? Sign up
           </Button>
         </Box>
       </Box>

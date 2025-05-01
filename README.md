@@ -50,3 +50,8 @@ This project uses the following technologies:
 - Send a web push notification for the reminder: Marcus
 - Integrate a React Calendar Widget for picking the reminder: Marcus
 - UI: Marcus
+- Frontend color palette: Kaylee
+- Button adjustment for creating and editing reminders: Kaylee
+- Installed Mantine UI: Kaylee
+- Adjusted layout of sign in/sign up pages: Kaylee
+- Added options for detailed calendar views with week and day time breakdowns: Kaylee
